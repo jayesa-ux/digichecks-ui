@@ -1,0 +1,136 @@
+<div>
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <div class="container">
+        @if (loadingForm) {
+            <div class="d-flex flex-row justify-content-center align-items-center my-5">
+                <div class="spinner-border spinner__color" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+            </div>
+        } @else {
+            @if (!isCompleted) {
+                <div class="row mb-4 mt-4">
+                    <div class="d-flex flex-row gap-2">
+                        <span class="fs-5 fw-semibold text-dark">{{ taskInstanceName }}</span>
+                    </div>
+                    <div class="d-flex flex-row gap-1 ms-2">
+                        @switch (taskStatus) {
+                            @case ('Ready') {
+                                <span class="badge text-bg-info">{{ taskStatus }}</span>
+                            }
+                            @case ('Reserved') {
+                                <span class="badge text-bg-warning">{{ taskStatus }}</span>
+                            }
+                            @case ('InProgress') {
+                                <div>
+                                    <span class="badge text-bg-primary">{{ taskStatus }}</span>
+                                </div>
+                            }
+                            @case ('Completed') {
+                                <div>
+                                    <span class="badge text-bg-success">{{ taskStatus }}</span>
+                                </div>
+                            }
+                            @case ('ActionRequired') {
+                                <div>
+                                    <span class="badge text-bg-danger">{{ 'permits.status.actionRequired' | translate }}</span>
+                                </div>
+                            }
+                        }
+                        <span class="fw-bold fs-8 text-medium">{{ processName }}</span>
+                        <span class="fw-bold fs-8 text-medium">{{ taskDescription }}</span>
+                    </div>
+                </div>
+                @if (formInputs.length) {
+                    <div class="row">
+                        <span class="fs-5 fw-bold text-dark">{{ 'permits.processInfo' | translate }}</span>
+                    </div>
+                    <div class="row p-4">
+                        @for (input of formInputs; track input; let i = $index) {
+                            <div class="row">
+                                <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mb-4">
+                                    <span class="fw-bold">{{ input.name + ': ' }}</span>
+                                </div>
+                                @if (input.type === 'textfield') {
+                                    <div class="col-auto mb-4">
+                                        <span>{{ input.defaultValue ? input.defaultValue : '-' }}</span>
+                                    </div>
+                                } @else if (input.type === 'object') {
+                                    <div class="container mt-4">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th *ngFor="let key of getObjectKeys(input.defaultValue)">{{ key }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let i of getMaxRowCount(input.defaultValue); let rowIndex = index">
+                                                    <td *ngFor="let key of getObjectKeys(input.defaultValue)">
+                                                        <div *ngIf="input.defaultValue[key][rowIndex]; else emptyCell">
+                                                            {{ input.defaultValue[key][rowIndex] }}
+                                                        </div>
+                                                        <ng-template #emptyCell>
+                                                            <div class="text-muted">-</div>
+                                                        </ng-template>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="row"><hr /></div>
+                }
+                @if (formOutputConfig.components?.length) {
+                    <div class="row">
+                        <span class="fs-5 fw-bold text-dark">{{ 'permits.processForm' | translate }}</span>
+                    </div>
+                    <div class="row p-4">
+                        <formio [form]="formOutputConfig" (change)="onBuilderChange($event)"></formio>
+                    </div>
+                }
+                <div class="row">
+                    @if (groups[0] === 'all' || includeOnGroups) {
+                        <div class="d-flex flex-row justify-content-end gap-3">
+                            <button type="button" class="btn btn-primary" (click)="completeAutoProgress()">Complete</button>
+                        </div>
+                    } @else {
+                        @if (groups.length) {
+                            <div class="alert alert-primary d-flex flex-row justify-content-center" role="alert">
+                                <span>{{ 'permits.taskGroup' | translate }}</span> <span class="ms-2 fw-bold">{{ groups }}</span>
+                            </div>
+                        }
+                    }
+                    @if (users.includes(currentUser.user_name)) {
+                        <div class="d-flex flex-row justify-content-end gap-3">
+                            <button type="button" class="btn btn-primary" (click)="completeAutoProgress()">Complete</button>
+                        </div>
+                    } @else {
+                        @if (users.length) {
+                            <div class="alert alert-primary d-flex flex-row justify-content-center" role="alert">
+                                <span>{{ 'permits.taskUser' | translate }}</span> <span class="ms-2 fw-bold">{{ users }}</span>
+                            </div>
+                        }
+                    }
+                </div>
+            } @else {
+                <div class="alert alert-success d-flex flex-row justify-content-center m-4" role="alert">
+                    <span>{{ 'permits.taskCompleted' | translate }}</span>
+                </div>
+            }
+            <div class="d-flex flex-column">
+                <div class="mb-2">
+                    <span class="fw-bold fs-5 text-dark">{{ 'permits.permitProcess' | translate }}</span>
+                </div>
+                <div class="mb-11">
+                    @if (metaTitleList.length) {
+                        <app-timeline [stepsList]="metaTitleList" [stepActual]="metaTitle"></app-timeline>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

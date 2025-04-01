@@ -1,0 +1,36 @@
+body {
+    background-color: var(--bs-white) !important;
+    color: var(--bs-text-medium) !important;
+    font-family: Inter !important;
+    font-size: var(--bs-body-font-size) !important;
+}
+
+.navbar {
+    background-color: var(--bs-white) !important;
+}
+
+.input-group-text {
+    background-color: var(--bs-white) !important;
+    color: var(--bs-gary-3) !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.btn:disabled,
+fieldset:disabled .btn {
+    color: var(--bs-gray-4) !important;
+    pointer-events: none;
+    background-color: #e6e6e6 !important;
+    border-color: #e6e6e6 !important;
+    opacity: var(--bs-btn-disabled-opacity) !important;
+}
+
+.header__hr-primary {
+    border-color: var(--bs-primary) !important;
+}
+
+.header__hr-primary-red {
+    border-color: var(--bs-primary-red) !important;
+}

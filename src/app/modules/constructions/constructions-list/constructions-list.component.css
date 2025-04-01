@@ -1,0 +1,23 @@
+.construction-card {
+    box-shadow: var(--bs-box-shadow) !important;
+    min-height: 215px;
+}
+
+.construction-card:hover {
+    box-shadow: var(--bs-box-shadow-lg) !important;
+    min-height: 215px;
+}
+
+.show-morer {
+    cursor: default;
+    transition: font-weight 0.3s ease;
+}
+
+.show-more:hover {
+    font-weight: bold;
+}
+
+.img-construction {
+    width: 200px !important;
+    height: 150px !important;
+}

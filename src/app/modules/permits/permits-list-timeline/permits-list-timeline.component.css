@@ -1,0 +1,15 @@
+.text-month {
+    color: var(--bs-text-blue) !important;
+}
+
+.bg-dayMonth {
+    background-color: var(--bs-gray) !important;
+}
+
+.me-0-5 {
+    margin-right: 0.1rem !important;
+}
+
+.ms-0-5 {
+    margin-left: 0.1rem !important;
+}

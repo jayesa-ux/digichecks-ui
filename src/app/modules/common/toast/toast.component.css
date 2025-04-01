@@ -1,0 +1,17 @@
+.success {
+    background-color: var(--bs-green);
+    color: var(--bs-white);
+}
+
+.info {
+    background-color: var(--bs-blue);
+}
+
+.warning {
+    background-color: var(--bs-warning);
+}
+
+.error {
+    background-color: var(--bs-danger);
+    color: var(--bs-white);
+}

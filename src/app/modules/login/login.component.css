@@ -1,0 +1,70 @@
+.form-control__icon {
+    border-top-right-radius: 0rem !important;
+    border-bottom-right-radius: 0rem !important;
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .mx-form-login {
+        margin-right: 5rem !important;
+        margin-left: 5rem !important;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .mx-form-login {
+        margin-right: 5rem !important;
+        margin-left: 5rem !important;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .mx-form-login {
+        margin-right: 5rem !important;
+        margin-left: 5rem !important;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .mx-form-login {
+        margin-right: 5rem !important;
+        margin-left: 5rem !important;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .mx-form-login {
+        margin-right: 5rem !important;
+        margin-left: 5rem !important;
+    }
+}
+
+@media (min-width: 1600px) {
+    .mx-form-login {
+        margin-right: 10rem !important;
+        margin-left: 10rem !important;
+    }
+}
+
+@media (min-width: 1980px) {
+    .mx-form-login {
+        margin-right: 10rem !important;
+        margin-left: 10rem !important;
+    }
+}
+
+.full-height-image {
+    height: 100vh;
+    width: auto;
+    object-fit: cover;
+}
+
+.btn-delete-input {
+    right: 65px !important;
+    cursor: pointer;
+    z-index: 5;
+}

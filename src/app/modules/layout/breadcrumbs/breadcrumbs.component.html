@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-row justify-content-between align-items-center">
+            <div class="d-flex flex-row gap-2 my-2 ms-3 fs-8">
+                @for (breadcrumb of breadcrumbs$ | async; track breadcrumb; let i = $index) {
+                    <span class="text-decoration-none tex-medium fs-8 cursor-pointer" (click)="navigate(breadcrumb.url)">{{
+                        'navigation.' + breadcrumb.label | translate
+                    }}</span>
+                    @if (i !== breadcrumbsSize - 1) {
+                        <img src="./assets/images/icons/chevron_right.svg" />
+                    }
+                }
+            </div>
+            @if (breadcrumbsSize > 1) {
+                <div class="d-flex flex-row justify-content-start align-items-center cursor-pointer" (click)="navigateBack()">
+                    @if (colorArrowBack === 'green') {
+                        <img src="./assets/images/header/arrow-left-green.svg" class="me-1" />
+                    } @else if (colorArrowBack === 'blue') {
+                        <img src="./assets/images/header/arrow-left-blue.svg" class="me-1" />
+                    } @else if (colorArrowBack === 'red') {
+                        <img src="./assets/images/header/arrow-left-red.svg" class="me-1" />
+                    }
+                    <span class="spam__text-back text-semibold">{{ 'common.back' | translate }}</span>
+                </div>
+            }
+        </div>
+        <div class="w-100 border-bottom border-1 header__hr-primary"></div>
+    </div>
+</div>

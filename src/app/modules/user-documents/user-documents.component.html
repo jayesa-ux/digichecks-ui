@@ -1,0 +1,121 @@
+@if (showFiles) {
+    <app-breadcrumbs></app-breadcrumbs>
+    <div class="container mt-4">
+        <div class="row mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="input-group has-validation mb-3 w-25">
+                    <input
+                        type="text"
+                        class="form-control form-control__icon"
+                        placeholder="{{ 'userDocuments.search' | translate }}"
+                        [(ngModel)]="searchTerm"
+                        (input)="filterDocuments()"
+                    />
+                    <div class="input-group-text">
+                        <img src="./assets/images/icons/search.svg" class="img-fluid object-fit-none" style="width: 16px; height: 16px" />
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary btn-green" data-bs-toggle="modal" data-bs-target="#documentsModal">
+                        <div class="d-flex">
+                            <span>{{ 'userDocuments.requestDocument' | translate }}</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span>{{ 'userDocuments.availableDocuments' | translate }}</span>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (document of filteredDocuments; track document; let i = $index) {
+                            <tr>
+                                <td>{{ document.name }}{{ document.extension }}</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        @if (document.extension === '.pdf') {
+                                            <button class="btn btn-primary btn-sm" (click)="showDocument(document)">
+                                                <span class="mx-1">{{ 'userDocuments.view' | translate }}</span>
+                                            </button>
+                                        } @else {
+                                            <button class="btn btn-primary btn-sm ms-1" (click)="downloadDocument(document)">
+                                                <span class="mx-1">{{ 'userDocuments.save' | translate }}</span>
+                                            </button>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="documentsModal" tabindex="-1" aria-labelledby="documentsModal" data-bs-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="fs-5 fw-bold text-dark text-center w-100">{{ 'userDocuments.requestDocument' | translate }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #btnCloseModal></button>
+                </div>
+                <div class="modal-body">
+                    @if (!loadingModal) {
+                        <form [formGroup]="getFileForm" (ngSubmit)="submitForm()">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="documentId" class="form-label fw-bold">ID document</label>
+                                        <input type="text" class="form-control" id="documentId" formControlName="documentId" />
+                                        <div
+                                            *ngIf="getFileForm.get('documentId')?.invalid && getFileForm.get('documentId')?.touched"
+                                            class="text-danger"
+                                        >
+                                            ID is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="documentUrl" class="form-label fw-bold">URL service</label>
+                                        <input type="text" class="form-control" id="documentUrl" formControlName="documentUrl" />
+                                        <div
+                                            *ngIf="getFileForm.get('documentUrl')?.invalid && getFileForm.get('documentUrl')?.touched"
+                                            class="text-danger"
+                                        >
+                                            Enter a valid URL.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" [disabled]="getFileForm.invalid">Download</button>
+                                </div>
+                            </div>
+                        </form>
+                    } @else {
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (filenameSelected && !showFiles) {
+    <app-document-viewer [filename]="filenameSelected" (closePDFEvent)="onClosePDF()" (downloadPDFEvent)="onDownloadPDF()"></app-document-viewer>
+}

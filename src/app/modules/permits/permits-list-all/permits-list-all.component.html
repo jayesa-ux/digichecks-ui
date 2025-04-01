@@ -1,0 +1,172 @@
+<div>
+    <app-breadcrumbs></app-breadcrumbs>
+</div>
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+            <div class="d-flex flex-row justify-content-between">
+                <div>
+                    <span class="fw-bold fs-5 text-dark">{{ 'permits.permitsList' | translate }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mb-10">
+    <div class="row mb-4">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" sortable="type" (sort)="onSort($event)" class="text-center"><span class="fw-bold">Type of permit</span></th>
+                        <th scope="col" sortable="description" (sort)="onSort($event)" class="text-center"><span class="fw-bold">Title</span></th>
+                        <th scope="col" sortable="createDate" (sort)="onSort($event)" class="text-center">
+                            <span class="fw-bold">Created date</span>
+                        </th>
+                        <th scope="col" sortable="modifyDate" (sort)="onSort($event)" class="text-center">
+                            <span class="fw-bold">Modify date</span>
+                        </th>
+                        <th scope="col" class="text-center"><span class="fw-bold">History</span></th>
+                        <!-- <th scope="col" (sort)="onSort($event)"><span class="fw-bold">Status</span></th> -->
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (permits.length > 0) {
+                        @for (permit of permits; track permit.instanceId) {
+                            <tr>
+                                <td class="p-3 text-center">
+                                    <span>{{ 'permits.type.' + permit.type | translate }}</span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span>{{ permit.description ? permit.description : '-' }}</span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span>{{ permit.createDate | date: 'MM/dd/yyyy HH:mm' }}</span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <span>{{ permit.modifyDate | date: 'MM/dd/yyyy HH:mm' }}</span>
+                                </td>
+                                <td class="p-3">
+                                    <div class="d-flex justify-content-center">
+                                        <img
+                                            src="./assets/images/icons/history.svg"
+                                            class="me-2 cursor-pointer"
+                                            (click)="permitHistory(permit.instanceId)"
+                                        />
+                                    </div>
+                                </td>
+                                <td class="p-3">
+                                    <div class="d-flex flex-row justify-content-center align-items-center gap-3">
+                                        <button
+                                            class="btn btn-primary btn-sm"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            [attr.data-bs-target]="'#collapseRow' + permit.instanceId"
+                                            [attr.aria-expanded]="permitExpanded === permit.instanceId ? true : false"
+                                            [attr.aria-controls]="'#collapseRow' + permit.instanceId"
+                                            (click)="expandTasks(permit.instanceId, permit.construction)"
+                                        >
+                                            {{ permitExpanded === permit.instanceId ? 'Hide Tasks' : 'Show Tasks' }}
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="collapseRow{{ permit.instanceId }}" class="collapse {{ permitExpanded === permit.instanceId ? 'show' : '' }}">
+                                <td colspan="6">
+                                    @if (childrensInstances.length) {
+                                        <div class="d-flex flex-row justify-content-start align-items-center mb-2">
+                                            <div style="width: 15% !important" class="fw-bold">Status</div>
+                                            <div style="width: 40% !important" class="fw-bold">Name</div>
+                                            <div style="width: 20% !important" class="fw-bold">User / Group</div>
+                                            <div style="width: 10% !important" class="fw-bold">Action</div>
+                                        </div>
+                                        @for (childrenInstance of childrensInstances; track childrenInstance) {
+                                            <div
+                                                class="d-flex flex-row justify-content-start align-items-center p-2 children-hover"
+                                                (click)="editPermit(childrenInstance.instanceId, childrenInstance?.taskInstanceID)"
+                                            >
+                                                <div style="width: 15% !important">
+                                                    @switch (childrenInstance.status) {
+                                                        @case ('Ready') {
+                                                            <span class="badge text-bg-primary">{{ 'permits.status.inProgress' | translate }}</span>
+                                                        }
+                                                        @case ('Reserved') {
+                                                            <span class="badge text-bg-primary">{{ 'permits.status.inProgress' | translate }}</span>
+                                                        }
+                                                        @case ('InProgress') {
+                                                            <span class="badge text-bg-primary">{{ 'permits.status.inProgress' | translate }}</span>
+                                                        }
+                                                        @case ('Completed') {
+                                                            <span class="badge text-bg-success">{{ childrenInstance.status }}</span>
+                                                        }
+                                                        @case ('ActionRequired') {
+                                                            <span class="badge text-bg-danger">{{
+                                                                'permits.status.actionRequired' | translate
+                                                            }}</span>
+                                                        }
+                                                    }
+                                                </div>
+                                                <div style="width: 40% !important">
+                                                    <span>{{ childrenInstance.description }}</span>
+                                                </div>
+                                                <div style="width: 20% !important">
+                                                    @if (childrenInstance.owners?.users.length > 0) {
+                                                        <span>{{ childrenInstance.owners.users }} / {{ users[childrenInstance.owners.users] }}</span>
+                                                    }
+                                                    @if (childrenInstance.owners?.groups.length > 0) {
+                                                        <span>- / {{ childrenInstance.owners.groups }}</span>
+                                                    }
+                                                </div>
+                                                <div style="width: 10% !important">
+                                                    <div class="d-flex flex-row">
+                                                        <img src="./assets/images/icons/edit.svg" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        }
+                                    } @else {
+                                        @if (!loadingChildrens) {
+                                            @if (showStatus === 'complete') {
+                                                <div class="alert alert-success d-flex flex-row justify-content-center m-2" role="alert">
+                                                    <span>{{ 'permits.taskCompleted' | translate }}</span>
+                                                </div>
+                                            } @else if (showStatus === 'rejected') {
+                                                <div class="alert alert-danger d-flex flex-row justify-content-center m-2" role="alert">
+                                                    <span>{{ 'permits.taskRejected' | translate }}</span>
+                                                </div>
+                                            }
+                                        } @else {
+                                            <div style="height: 70px !important" class="d-flex flex-row justify-content-center align-items-center">
+                                                <div class="spinner-border spinner__color" role="status">
+                                                    <span class="visually-hidden"></span>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    } @else {
+                        <tr>
+                            <td class="p-3 text-center" colspan="8">
+                                <span class="fw-bold">No results</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-center p-2">
+                <ngb-pagination
+                    [collectionSize]="paginatorObj.totalSize"
+                    [(page)]="paginatorObj.page"
+                    [pageSize]="paginatorObj.itemsPerPage"
+                    (pageChange)="refresh()"
+                >
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

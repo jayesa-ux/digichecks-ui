@@ -1,0 +1,7 @@
+.top-80 {
+    top: 80px !important;
+}
+
+.toaster {
+    z-index: 2000;
+}

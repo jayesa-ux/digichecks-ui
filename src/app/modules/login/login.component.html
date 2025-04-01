@@ -1,0 +1,122 @@
+<div class="row m-0" style="margin-top: -5px !important">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 h-100 p-0">
+        <div class="min-vh-100">
+            <img src="./assets/images/login/left-login.svg" class="full-height-image" alt="Digichecks" />
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex flex-column">
+        <div class="container mt-5 mt-4">
+            <div class="row mx-form-login">
+                <div class="col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                    <div class="container-fluid ms-5 mt-1">
+                        <img src="./assets/images/login/digichecks-logo.svg" class="img-fluid" alt="Digichecks" />
+                    </div>
+                </div>
+                <div class="col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                    <p class="text-break fw-semibold fs-8 ps-2">
+                        {{ 'login.textInfo' | translate }}
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-5 mx-form-login">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                    <p class="text-green fw-semibold">{{ 'login.accessAs' | translate }}</p>
+                </div>
+                <form [formGroup]="loginForm" (ngSubmit)="sigIn()">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div class="input-group has-validation mb-3 position-relative">
+                            <input
+                                type="text"
+                                formControlName="user"
+                                class="form-control form-control__icon"
+                                placeholder="{{ 'common.user' | translate }}"
+                                aria-label="user"
+                                aria-describedby="input-user"
+                                [ngClass]="{ 'is-invalid': lgfc.user.touched && lgfc.user.errors, 'is-valid': lgfc.user.valid }"
+                            />
+                            @if (lgfc.user.value) {
+                                <span
+                                    class="btn-close btn-delete-input position-absolute top-50 end-0 translate-middle-y me-2"
+                                    (click)="clearUser()"
+                                ></span>
+                            }
+                            <div class="input-group-text" id="input-user">
+                                <img src="./assets/images/icons/user.svg" class="img-fluid object-fit-none ms-1" alt="Digichecks" />
+                            </div>
+                            @if (lgfc.user.touched && lgfc.user.errors) {
+                                <div class="invalid-feedback">
+                                    @if (lgfc.user.errors.required) {
+                                        <div>{{ 'validation.nameRequired' | translate }}</div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div class="input-group has-validation mb-3">
+                            <input
+                                type="{{ showPassword ? 'text' : 'password' }}"
+                                formControlName="password"
+                                class="form-control form-control__icon"
+                                placeholder="{{ 'common.password' | translate }}"
+                                aria-label="password"
+                                aria-describedby="input-password"
+                                [ngClass]="{ 'is-invalid': lgfc.password.touched && lgfc.password.errors, 'is-valid': lgfc.password.valid }"
+                            />
+                            @if (lgfc.password.value) {
+                                <span
+                                    class="btn-close btn-delete-input position-absolute top-50 end-0 translate-middle-y me-2"
+                                    (click)="clearPassword()"
+                                ></span>
+                            }
+                            @if (showPassword) {
+                                <div
+                                    class="input-group-text cursor-pointer"
+                                    id="input-password"
+                                    (click)="showPassword ? (showPassword = false) : (showPassword = true)"
+                                >
+                                    <img src="./assets/images/icons/eye-show.svg" class="img-fluid object-fit-none" />
+                                </div>
+                            } @else {
+                                <div
+                                    class="input-group-text cursor-pointer"
+                                    id="input-password"
+                                    (click)="showPassword ? (showPassword = false) : (showPassword = true)"
+                                >
+                                    <img src="./assets/images/icons/eye-hidden.svg" class="img-fluid object-fit-none" />
+                                </div>
+                            }
+                            @if (lgfc.password.touched && lgfc.password.errors) {
+                                <div class="invalid-feedback">
+                                    @if (lgfc.password.errors.required) {
+                                        <div>{{ 'validation.passwordRequired' | translate }}</div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                        @if (loginForm.valid) {
+                            <button type="submit" class="btn btn-primary w-100">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <span>{{ 'login.enterPlattform' | translate }}</span>
+                                    <img src="./assets/images/icons/arrow-right.svg" class="ms-2" />
+                                </div>
+                            </button>
+                        } @else {
+                            <button type="submit" class="btn btn-secondary w-100" disabled>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <span>{{ 'login.enterPlattform' | translate }}</span>
+                                    <img src="./assets/images/icons/arrow-right-disabled.svg" class="ms-2" />
+                                </div>
+                            </button>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end align-items-end h-100">
+            <img src="./assets/images/login/european-commission.svg" class="img-fluid object-fit-none p-3" alt="European Commission" />
+        </div>
+    </div>
+</div>

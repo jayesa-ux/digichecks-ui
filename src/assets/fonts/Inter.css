@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100;
+  src: url(../fonts/Inter/Inter-normal-100.ttf) format('truetype'), url(../fonts/Inter/Inter-normal-100.woff) format('woff'), url(../fonts/Inter/Inter-normal-100.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../fonts/Inter/Inter-normal-300.ttf) format('truetype'), url(../fonts/Inter/Inter-normal-300.woff) format('woff'), url(../fonts/Inter/Inter-normal-300.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/Inter/Inter-normal-400);
+  src: local('Inter'), url(../fonts/Inter/Inter-normal-400.ttf) format('truetype'), url(../fonts/Inter/Inter-normal-400.woff) format('woff'), url(../fonts/Inter/Inter-normal-400.woff2) format('woff2'), url(../fonts/Inter/Inter-normal-400?#iefix) format('embedded-opentype'), url(../fonts/Inter/Inter-normal-400.svg#Inter) format('svg');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/Inter/Inter-normal-700.ttf) format('truetype'), url(../fonts/Inter/Inter-normal-700.woff) format('woff'), url(../fonts/Inter/Inter-normal-700.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  src: url(../fonts/Inter/Inter-normal-900.ttf) format('truetype'), url(../fonts/Inter/Inter-normal-900.woff) format('woff'), url(../fonts/Inter/Inter-normal-900.woff2) format('woff2');
+}
+

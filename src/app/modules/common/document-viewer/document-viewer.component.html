@@ -1,0 +1,31 @@
+@if (pdfSrc) {
+    <div class="justify-content-center pdf-container">
+        <div class="col-12">
+            <div class="d-flex justify-content-center gap-4 p-2">
+                <div class="d-flex justify-content-center align-items-center gap-1">
+                    <span class="me-3">Page: {{ currentPagePDF }}</span>
+                    <button class="btn btn-primary btn-sm" (click)="prevPagePDF()">❮ {{ 'userDocuments.prev' | translate }}</button>
+                    <button class="btn btn-primary btn-sm" (click)="nextPagePDF()">{{ 'userDocuments.next' | translate }} ❯</button>
+                </div>
+                <div class="d-flex justify-content-center gap-1">
+                    <button class="btn btn-primary btn-sm" (click)="zoomOutPDF()">-</button>
+                    <button class="btn btn-primary btn-sm" (click)="zoomInPDF()">+</button>
+                </div>
+                <div class="d-flex justify-content-center gap-1">
+                    <button class="btn btn-primary btn-sm" (click)="downloadPDF()">{{ 'userDocuments.download' | translate }}</button>
+                    <button class="btn btn-danger btn-sm" (click)="closePDF()">{{ 'userDocuments.close' | translate }}</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <pdf-viewer
+                [src]="pdfSrc"
+                [render-text]="true"
+                [original-size]="true"
+                [zoom]="zoomLevelPDF"
+                [page]="currentPagePDF"
+                style="display: block; width: 100%; height: 730px"
+            ></pdf-viewer>
+        </div>
+    </div>
+}

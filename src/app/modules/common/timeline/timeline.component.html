@@ -1,0 +1,60 @@
+<div class="d-flex flex-row justify-content-center w-100">
+    @for (step of steps; track step; let i = $index) {
+        <div class="d-flex flex-column align-items-center ml--8" style="width: 130px; height: 16px">
+            @switch (step.status) {
+                @case ('NOTSTARTED') {
+                    <div class="mt--custom"></div>
+                    <div class="d-flex flex-row">
+                        @if (i > 0) {
+                            <div><img src="./assets/images/timeline/rect-empty.svg" /></div>
+                        } @else {
+                            <div style="width: 53px"></div>
+                        }
+                        <div><img src="./assets/images/timeline/circle-empty.svg" /></div>
+                        @if (i !== steps.length - 1) {
+                            <div><img src="./assets/images/timeline/rect-empty.svg" /></div>
+                        } @else {
+                            <div style="width: 53px"></div>
+                        }
+                    </div>
+                }
+                @case ('INPROGRESS') {
+                    <div class="mt--custom"></div>
+                    <div class="d-flex flex-row">
+                        @if (i > 0) {
+                            <div><img src="./assets/images/timeline/rect-fill.svg" /></div>
+                        } @else {
+                            <div style="width: 53px"></div>
+                        }
+                        <div><img src="./assets/images/timeline/circle-fill.svg" /></div>
+                        @if (i !== steps.length - 1) {
+                            <div><img src="./assets/images/timeline/rect-fill.svg" /></div>
+                        } @else {
+                            <div style="width: 53px"></div>
+                        }
+                    </div>
+                }
+                @case ('COMPLETED') {
+                    <div><img src="./assets/images/icons/approval.svg" /></div>
+                    <div class="d-flex flex-row">
+                        @if (i > 0) {
+                            <div><img src="./assets/images/timeline/rect-fill.svg" /></div>
+                        } @else {
+                            <div style="width: 53px"></div>
+                        }
+                        <div><img src="./assets/images/timeline/circle-fill.svg" /></div>
+                        @if (i !== steps.length - 1) {
+                            <div><img src="./assets/images/timeline/rect-fill.svg" /></div>
+                        } @else {
+                            <div style="width: 53px"></div>
+                        }
+                    </div>
+                }
+            }
+
+            <div>
+                <p class="text-center">{{ step.name }}</p>
+            </div>
+        </div>
+    }
+</div>

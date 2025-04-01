@@ -1,0 +1,125 @@
+<div>
+    <app-breadcrumbs></app-breadcrumbs>
+</div>
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                    @if (construction && construction.images.length > 0) {
+                        <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="false" [interval]="0">
+                            @for (image of construction.images; track image) {
+                                <ng-template ngbSlide>
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="'/assets/images/constructions/' + image" class="rounded-2 mt-1 img-construction" />
+                                    </div>
+                                </ng-template>
+                            }
+                        </ngb-carousel>
+                    }
+                </div>
+                <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+                    @if (construction) {
+                        <div class="d-flex flex-column">
+                            <div>
+                                <span class="fs-5 fw-bold text-dark">{{ construction.name }}</span>
+                            </div>
+                            <div class="d-flex flex-row">
+                                <img src="./assets/images/icons/location-pin.svg" class="img-fluid" />
+                                <span class="fs-6 font-bold text-gray-4 text-capitalize">{{ construction.city[0].name }}</span>
+                            </div>
+                            <div>
+                                <span class="fs-8 fw-semibold text-medium">{{ construction.constructionType[0].type }}</span>
+                            </div>
+                            <div>
+                                <p class="fs-9" style="white-space: pre-line">{{ construction.largeDescription }}</p>
+                            </div>
+                            <div class="d-flex flex-row justify-content-start align-items-center gap-1 mt-1">
+                                <span class="fs-9 text-medium" style="white-space: pre-line">{{ construction.shortDescription }}</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2">
+            <div class="d-flex justify-content-end">
+                @if (allowNewPermit && construction) {
+                    @if (construction.constructionType[0].type === 'Motorway') {
+                        <button type="button" class="btn btn-primary btn-green" data-bs-toggle="modal" data-bs-target="#permitTypesModal">
+                            <div class="d-flex">
+                                <img src="./assets/images/icons/plus.svg" class="me-2" />
+                                <span>{{ 'permits.newPermit' | translate }}</span>
+                            </div>
+                        </button>
+                    } @else if (construction.constructionType[0].type === 'Residential') {
+                        <button type="button" class="btn btn-primary btn-green" (click)="createElectricalPermit()">
+                            <div class="d-flex">
+                                <img src="./assets/images/icons/plus.svg" class="me-2" />
+                                <span>{{ 'permits.newPermit' | translate }}</span>
+                            </div>
+                        </button>
+                    } @else if (construction.constructionType[0].type === 'Offices') {
+                        <button type="button" class="btn btn-primary btn-green" (click)="createBuildingPermit()">
+                            <div class="d-flex">
+                                <img src="./assets/images/icons/plus.svg" class="me-2" />
+                                <span>{{ 'permits.newPermit' | translate }}</span>
+                            </div>
+                        </button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5 mb-10">
+    <div class="row mb-4">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+            @if (!timelineViewCheck && containerId && processId) {
+                <app-permits-list
+                    #appPermitsList
+                    [constructionCode]="constructionCode"
+                    [currentUser]="currentUser"
+                    [containerId]="containerId"
+                    [processId]="processId"
+                ></app-permits-list>
+            } @else if (containerId && processId) {
+                <app-permits-list-timeline [constructionCode]="constructionCode"></app-permits-list-timeline>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="permitTypesModal" tabindex="-1" aria-labelledby="permitTypesModal" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="fs-5 fw-bold text-dark text-center w-100">{{ 'permits.selectPermitType' | translate }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #btnCloseModal></button>
+            </div>
+            <div class="modal-body p-0">
+                @if (!loading) {
+                    <div class="list-group">
+                        @if (construction) {
+                            @for (permitType of construction.constructionType[0].permitTypes; track permitType; let i = $index) {
+                                <span
+                                    class="list-group-item list-group-item-action p-3 text-center cursor-pointer"
+                                    (click)="createAnimalPermit(permitType)"
+                                >
+                                    {{ 'permits.type.' + permitType | translate }}
+                                </span>
+                            }
+                        }
+                    </div>
+                } @else {
+                    <div class="d-flex flex-row justify-content-center align-items-center my-5">
+                        <div class="spinner-border spinner__color" role="status">
+                            <span class="visually-hidden"></span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

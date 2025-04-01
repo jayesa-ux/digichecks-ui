@@ -1,0 +1,7 @@
+.btn-outline-secondary {
+    border-color: var(--bs-border-color) !important;
+}
+
+.spinner__color {
+    color: var(--bs-primary) !important;
+}

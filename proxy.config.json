@@ -1,0 +1,8 @@
+{
+    "/apibpm/**": {
+        "target": "https://digichecks-bpm.westeurope.cloudapp.azure.com",
+        "secure": true,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

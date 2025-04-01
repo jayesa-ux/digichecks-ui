@@ -1,0 +1,16 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background-color: var(--bs-white);
+}
+
+.footer__img-eur {
+    width: 163px;
+    height: 40px;
+}
+
+.footer-light {
+    background-color: var(--bs-primary-light) !important;
+}

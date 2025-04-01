@@ -1,0 +1,31 @@
+.user__circle {
+    background-color: var(--bs-gray-1);
+    color: var(--bs-white);
+}
+
+.badge-bell {
+    color: var(--bs-white) !important;
+    background-color: var(--bs-red) !important;
+}
+
+.hr__notifications {
+    border-color: var(--bs-text-medium) !important;
+}
+
+.hr-menu {
+    color: var(--bs-gray-2) !important;
+    opacity: 1;
+}
+
+.menu--notifications {
+    height: 245px;
+    overflow-y: auto;
+}
+
+.menu--notification--action:hover {
+    font-weight: bold;
+}
+
+.header-light {
+    background-color: var(--bs-primary-light) !important;
+}

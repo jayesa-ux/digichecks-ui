@@ -1,0 +1,171 @@
+<div>
+    <app-breadcrumbs></app-breadcrumbs>
+</div>
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+            <div class="d-flex flex-row justify-content-between">
+                <div>
+                    <span class="fw-bold fs-5 text-dark">{{ 'constructions.myConstructions' | translate }}</span>
+                </div>
+                <div class="form-check form-switch d-flex justify-content-end fs-5-5">
+                    <input
+                        class="form-check-input cursor-pointer"
+                        type="checkbox"
+                        role="switch"
+                        id="flexSwitchCheckChecked"
+                        [(ngModel)]="lisViewCheck"
+                    />
+                    <label class="form-check-label cursor-pointer ms-2" for="flexSwitchCheckChecked">{{ 'common.listView' | translate }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+            <form [formGroup]="filterConstructions" class="m-0 p-0">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <label class="text-dark fw-bold">{{ 'forms.cityHall' | translate }}</label>
+                        <select class="form-select" formControlName="cityHall">
+                            <option value="" selected>{{ 'forms.all' | translate }}</option>
+                            @for (cityHall of cityHallsArr; track cityHall._id; let i = $index) {
+                                <option value="{{ cityHall._id }}" selected>{{ cityHall.name }}</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <label class="text-dark fw-bold">{{ 'forms.constructionType' | translate }}</label>
+                        <select class="form-select" formControlName="constructionType">
+                            <option value="" selected>{{ 'forms.all' | translate }}</option>
+                            @for (constructionType of constructionTypesArr; track constructionType._id; let i = $index) {
+                                <option value="{{ constructionType._id }}">{{ constructionType.name }}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+            @if (allowNewConstruction) {
+                <div class="d-flex justify-content-end" style="margin-top: 1.3rem !important">
+                    <button type="button" class="btn btn-primary" (click)="insertConstruction()">
+                        <div class="d-flex">
+                            <img src="./assets/images/icons/plus.svg" class="me-2" />
+                            <span>{{ 'constructions.newConstruction' | translate }}</span>
+                        </div>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row mb-10">
+        @if (lisViewCheck) {
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"><span class="fw-bold">Construction</span></th>
+                            <th scope="col"><span class="fw-bold">Type</span></th>
+                            <th scope="col"><span class="fw-bold">Place</span></th>
+                            <th scope="col"><span class="fw-bold">Creation date</span></th>
+                            <th scope="col"><span class="fw-bold">Estimated finish</span></th>
+                            <th scope="col"><span class="fw-bold">Actions</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (construction of filteredConstructions; track construction._id) {
+                            <tr>
+                                <td class="align-items-center p-3">
+                                    <div class="d-flex flex-column">
+                                        <span class="text-dark fw-bold">{{ construction.name }}</span>
+                                    </div>
+                                </td>
+                                <td class="align-items-center p-3">
+                                    <span>{{ construction.constructionType[0].name }}</span>
+                                </td>
+                                <td class="align-items-center p-3">
+                                    <span>{{ construction.city[0].name }}</span>
+                                </td>
+                                <td class="align-items-center p-3">
+                                    <span>{{ construction.createDate | date: 'MM/dd/yyyy' }}</span>
+                                </td>
+                                <td class="align-items-center p-3">
+                                    <div class="d-flex flex-row">
+                                        <img src="./assets/images/icons/info.svg" class="me-2" />
+                                        <span>{{ construction.estimatedFinish | date: 'MM/yyyy' }}</span>
+                                    </div>
+                                </td>
+                                <td class="align-items-center p-3">
+                                    <img
+                                        src="./assets/images/icons/edit.svg"
+                                        class="cursor-pointer"
+                                        (click)="constructionDetail(construction.code!)"
+                                    />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-center p-2">
+                    <ngb-pagination
+                        [collectionSize]="paginatorObj.totalSize"
+                        [(page)]="paginatorObj.page"
+                        [pageSize]="paginatorObj.itemsPerPage"
+                        (pageChange)="refresh()"
+                    >
+                    </ngb-pagination>
+                </div>
+            </div>
+        } @else {
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                @for (construction of filteredConstructions; track construction._id) {
+                    <div class="construction-card rounded cursor-pointer p-2 mb-3">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                @if (construction.images.length > 0) {
+                                    <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="false" [interval]="0">
+                                        @for (image of construction.images; track image) {
+                                            <ng-template ngbSlide>
+                                                <div class="picsum-img-wrapper">
+                                                    <img [src]="'/assets/images/constructions/' + image" class="rounded-2 mt-1 img-construction" />
+                                                </div>
+                                            </ng-template>
+                                        }
+                                    </ngb-carousel>
+                                }
+                                <div class="ms-2" (click)="constructionDetail(construction.code!)">
+                                    <div class="d-flex flex-column">
+                                        <div>
+                                            <span class="fs-5 fw-bold text-dark">{{ construction.name }}</span>
+                                        </div>
+                                        <div class="d-flex flex-row">
+                                            <img src="./assets/images/icons/location-pin.svg" class="img-fluid" />
+                                            <span class="fs-6 font-bold text-gray-4 text-capitalize">{{ construction.city[0].name }}</span>
+                                        </div>
+                                        <div>
+                                            <span class="fs-8 fw-semibold text-medium ms-1">{{ construction.constructionType[0].type }}</span>
+                                        </div>
+                                        <div>
+                                            <span class="fs-9">{{ construction.largeDescription }}</span>
+                                            <span class="ms-2 fs-9 show-more">{{ 'constructions.showmore' | translate }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-start align-items-center gap-1 mt-3">
+                                <p class="fs-9 text-medium mb-0" style="white-space: pre-line">{{ construction.shortDescription }}</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                @if (mapMarkers && mapMarkers.length > 0) {
+                    <app-map [markers]="mapMarkers"></app-map>
+                }
+            </div>
+        }
+    </div>
+</div>

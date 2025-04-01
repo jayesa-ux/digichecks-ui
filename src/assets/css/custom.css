@@ -1,0 +1,62 @@
+/* text variables */
+.text-medium {
+    color: var(--bs-text-medium) !important;
+}
+
+.text-light {
+    color: var(--bs-text-light) !important;
+}
+
+.text-green {
+    color: var(--bs-green) !important;
+}
+
+.text-dark {
+    color: var(--bs-text-dark) !important;
+}
+
+.text-gray-4 {
+    color: var(--bs-gray-4) !important;
+}
+
+.text-blue {
+    color: var(--bs-text-blue) !important;
+}
+
+/* text variables */
+
+/*text sizes */
+
+/* 10px - 0.625rem - fs-9*/
+.fs-9 {
+    font-size: 0.625rem !important;
+}
+
+/* 12px - 0.75rem - fs-8*/
+.fs-8 {
+    font-size: 0.75rem !important;
+}
+
+/* 14px - 0.875rem - fs-7 */
+.fs-7 {
+    font-size: var(--bs-body-font-size) !important;
+}
+
+/* 16px - 1rem - fs-6*/
+
+/* 18px - 1.125rem - fs-5.5*/
+.fs-5-5 {
+    font-size: 1.125rem !important;
+}
+
+/* 20px - 1.25rem - fs-5*/
+
+/* text variables */
+.mb-10 {
+    margin-bottom: 10rem !important;
+}
+
+/* text variables */
+.mb-11 {
+    margin-bottom: 11rem !important;
+}

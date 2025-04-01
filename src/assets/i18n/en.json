@@ -1,0 +1,157 @@
+{
+    "roles": {
+        "applicant": "Applicant",
+        "approvant": "Approvant",
+        "ecologist": "Ecologist"
+    },
+    "common": {
+        "user": "User",
+        "password": "Password",
+        "copyright": "Copyright",
+        "year": "2024",
+        "listView": "List view",
+        "back": "back"
+    },
+    "login": {
+        "textInfo": "Integrating automated verification and validations of permits & check data on compilance with EU Standards",
+        "accessAs": "Access as",
+        "enterPlattform": "Enter the plattform",
+        "recoveryPassword": "Enter the plattform"
+    },
+    "header": {
+        "logout": "Logout",
+        "config": "Config"
+    },
+    "forms": {
+        "all": "All",
+        "name": "Name",
+        "code": "Code",
+        "permits": "Permits",
+        "createDate": "Created date",
+        "process": "Process",
+        "status": "Status",
+        "permitTitle": "Permit title",
+        "description": "Description",
+        "uploadDocuments": "Upload document/s",
+        "uploadDocumentsAndSave": "Upload documents and save",
+        "uploadImages": "Upload image/s",
+        "image": "Image",
+        "select": "select",
+        "document": "Document",
+        "cityHall": "City hall",
+        "constructionType": "Construction type",
+        "country": "Country",
+        "lengthArea": "Length / Area",
+        "largeDescription": "Description",
+        "saveConstruction": "Save construction",
+        "estimatedFinish": "Estimated finish",
+        "latitude": "Latitude",
+        "longitude": "Longitude"
+    },
+    "buttons": {
+        "delete": "Delete",
+        "cancel": "Cancel"
+    },
+    "permits": {
+        "newPermit": "New permit",
+        "editPermit": "Edit permit",
+        "permitProcess": "Permit process",
+        "permitsList": "Permits list",
+        "selectPermitType": "Select a permit type",
+        "taskGroup": "This task belongs to group",
+        "taskUser": "This task belongs to user",
+        "taskCompleted": "This permit process is completed.",
+        "taskRejected": "This permit is rejected.",
+        "title": "Title",
+        "owner": "Owner",
+        "processInfo": "Process information",
+        "processForm": "Data to fill in",
+        "status": {
+            "inProgress": "In progress",
+            "actionRequired": "Action required"
+        },
+        "type": {
+            "batPermit": "Bat permit",
+            "gcnPermit": "GCN permit",
+            "dormousePermit": "Dormouse permit",
+            "electricalPermit": "Electricity supply permit",
+            "buildingPermit": "Building permit"
+        },
+        "permitCreated": "New permit created",
+        "permitUpdated": "Permit has been updated"
+    },
+    "constructions": {
+        "myConstructions": "Constructions list",
+        "newConstruction": "New construction",
+        "permitProcess": "Permit process",
+        "timeline": "Timeline",
+        "length": "Length",
+        "area": "Area",
+        "showmore": "show more"
+    },
+    "timeline": {
+        "permitSubmission": "Permit submission",
+        "examination": "Examination",
+        "moreDocumentsRequested": "More documents requested",
+        "newDocumentsRequested": "New documents requested",
+        "decision": "Decision",
+        "approval": "Approval"
+    },
+    "notifications": {
+        "notifications": "Notifications",
+        "deleteNotifications": "Delete notification",
+        "deleteNotificationConfirm": "Are you sure you want to delete this notification?",
+        "noNotifications": "No notifications available"
+    },
+    "validation": {
+        "nameRequired": "Name is required",
+        "passwordRequired": "Password is required",
+        "PermitRequired": "Permit is required",
+        "createDateRequired": "Create date is required",
+        "constructionTypeRequired": "Construction type is required",
+        "cityHallRequired": "City hall is required",
+        "countryRequired": "Country is required",
+        "generalDescriptionRequired": "Length / Area is required",
+        "extendedRequired": "Extended description is required",
+        "codeRequired": "Code is required",
+        "latitudeRequired": "Latitude is required",
+        "longitudeRequired": "longitude is required",
+        "estimatedFinishRequired": "EstimatedFinish is required",
+        "permitTitleRequired": "Permit title is required"
+    },
+    "navigation": {
+        "permitsList": "Permits list",
+        "constructionsList": "Constructions",
+        "constructionDetail": "Construction detail",
+        "newConstruction": "New construction",
+        "permits": "Permits",
+        "editPermit": "Permit edit",
+        "detailPermit": "Permit Detail",
+        "permitHistory": "Permit Historic",
+        "documents": "Documents",
+        "documentsview": "Documents view"
+    },
+    "userDocuments": {
+        "fileName": "File name",
+        "availableDocuments": "Available documents",
+        "creationDate": "Creation date",
+        "view": "View",
+        "download": "Download",
+        "save": "Save",
+        "search": "Search file by name",
+        "home": "Home",
+        "documents": "Documents",
+        "requestDocument": "Request document",
+        "next": "Next",
+        "prev": "Prev",
+        "close": "Close"
+    },
+    "errors": {
+        "httpErrorGeneral": "An error has occurred",
+        "loginError": "Invalid username or password"
+    },
+    "success": {
+        "constructionSuccess": "Construction has been created successfully",
+        "notificationDeleteSuccess": "Notification has been delete successfully"
+    }
+}

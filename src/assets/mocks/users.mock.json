@@ -1,0 +1,17 @@
+{
+    "applfcc": "applicantsFCC",
+    "authnrw": "authorityNRW",
+    "ecofcc": "ecologists",
+    "ecologist1": "ecologists",
+
+    "applrealia": "applicantsREALIA",
+    "eleccotech": "electricityCompany",
+    "authorisedcotech": "authorisedCompany",
+    "constructioncotech": "constructionCompany",
+    "authoca": "oca",
+    "miniterind": "ministryIndustry",
+
+    "applcree": "applicantsCREE",
+    "specialist": "specialistsCREE",
+    "authcree": "authoritiesCREE"
+}

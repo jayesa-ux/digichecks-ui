@@ -1,0 +1,13 @@
+.img-detail {
+    width: 228px !important;
+    height: 150px !important;
+}
+
+.spinner__color {
+    color: var(--bs-primary) !important;
+}
+
+.img-construction {
+    width: 100% !important;
+    height: 180px !important;
+}

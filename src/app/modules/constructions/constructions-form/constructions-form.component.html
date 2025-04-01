@@ -1,0 +1,250 @@
+<div>
+    <app-breadcrumbs></app-breadcrumbs>
+    <div class="container mb-10">
+        <div class="row mb-4 mt-4">
+            <span class="fw-bold fs-5 text-dark">{{ 'constructions.newConstruction' | translate }}</span>
+            <div class="row mx-form-login"></div>
+        </div>
+        <form [formGroup]="newConstructionForm" (ngSubmit)="createConstruction()" class="m-0 p-0">
+            <div class="row mb-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-4">
+                    <label class="text-dark fw-bold">{{ 'forms.name' | translate }}</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="name"
+                        [ngClass]="{ 'is-invalid': ncfc.name.touched && ncfc.name.errors, 'is-valid': ncfc.name.valid }"
+                    />
+                    @if (ncfc.name.touched && ncfc.name.errors) {
+                        <div class="invalid-feedback">
+                            @if (ncfc.name.errors.required) {
+                                <div>{{ 'validation.nameRequired' | translate }}</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-4">
+                    <label class="text-dark fw-bold">{{ 'forms.country' | translate }}</label>
+                    <select
+                        class="form-select"
+                        formControlName="country"
+                        [ngClass]="{
+                            'is-invalid': ncfc.country.touched && ncfc.country.errors,
+                            'is-valid': ncfc.country.valid
+                        }"
+                    >
+                        @for (country of countriesArr; track country._id; let i = $index) {
+                            <option value="{{ country._id }}" selected>{{ country.name }}</option>
+                        }
+                    </select>
+                    @if (ncfc.country.touched && ncfc.country.errors) {
+                        <div class="invalid-feedback">
+                            @if (ncfc.country.errors.required) {
+                                <div>{{ 'validation.countryRequired' | translate }}</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                    <label class="text-dark fw-bold">{{ 'forms.cityHall' | translate }}</label>
+                    <select
+                        class="form-select"
+                        formControlName="city"
+                        [ngClass]="{ 'is-invalid': ncfc.city.touched && ncfc.city.errors, 'is-valid': ncfc.city.valid }"
+                    >
+                        @for (cityHall of cityHallsArr; track cityHall._id; let i = $index) {
+                            <option value="{{ cityHall._id }}" selected>{{ cityHall.name }}</option>
+                        }
+                    </select>
+                    @if (ncfc.city.touched && ncfc.city.errors) {
+                        <div class="invalid-feedback">
+                            @if (ncfc.city.errors.required) {
+                                <div>{{ 'validation.cityHallRequired' | translate }}</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                    <label class="text-dark fw-bold">{{ 'forms.constructionType' | translate }}</label>
+                    <select
+                        class="form-select"
+                        formControlName="constructionType"
+                        [ngClass]="{
+                            'is-invalid': ncfc.constructionType.touched && ncfc.constructionType.errors,
+                            'is-valid': ncfc.constructionType.valid
+                        }"
+                    >
+                        @for (constructionType of constructionTypesArr; track constructionType._id; let i = $index) {
+                            <option value="{{ constructionType._id }}" selected>{{ constructionType.name }}</option>
+                        }
+                    </select>
+                    @if (ncfc.constructionType.touched && ncfc.constructionType.errors) {
+                        <div class="invalid-feedback">
+                            @if (ncfc.constructionType.errors.required) {
+                                <div>{{ 'validation.constructionTypeRequired' | translate }}</div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                    <div class="d-flex flex-column">
+                        <div>
+                            <label class="text-dark fw-bold">{{ 'forms.lengthArea' | translate }}</label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                formControlName="shortDescription"
+                                [ngClass]="{
+                                    'is-invalid': ncfc.shortDescription.touched && ncfc.shortDescription.errors,
+                                    'is-valid': ncfc.shortDescription.valid
+                                }"
+                            />
+                            @if (ncfc.shortDescription.touched && ncfc.shortDescription.errors) {
+                                <div class="invalid-feedback">
+                                    @if (ncfc.shortDescription.errors.required) {
+                                        <div>{{ 'validation.generalDescriptionRequired' | translate }}</div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                    <label class="text-dark fw-bold">{{ 'forms.estimatedFinish' | translate }}</label>
+                    <div class="input-group"></div>
+                    <div class="input-group">
+                        <input
+                            class="form-control"
+                            placeholder="--/--/----"
+                            name="dp"
+                            formControlName="estimatedFinish"
+                            ngbDatepicker
+                            #d="ngbDatepicker"
+                            readonly
+                            [ngClass]="{
+                                'is-invalid': ncfc.estimatedFinish.touched && ncfc.estimatedFinish.errors,
+                                'is-valid': ncfc.estimatedFinish.valid
+                            }"
+                        />
+                        <button class="btn btn-outline-secondary bi" (click)="d.toggle()" type="button">
+                            <img src="./assets/images/icons/calendar.svg" />
+                        </button>
+                        @if (ncfc.estimatedFinish.touched && ncfc.estimatedFinish.errors) {
+                            <div class="invalid-feedback">
+                                @if (ncfc.estimatedFinish.errors.required) {
+                                    <div>{{ 'validation.estimatedFinishRequired' | translate }}</div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                    <div class="d-flex flex-column">
+                        <div class="mb-4">
+                            <label class="text-dark fw-bold">{{ 'forms.largeDescription' | translate }}</label>
+                            <textarea
+                                class="form-control"
+                                rows="4"
+                                formControlName="largeDescription"
+                                [ngClass]="{
+                                    'is-invalid': ncfc.largeDescription.touched && ncfc.largeDescription.errors,
+                                    'is-valid': ncfc.largeDescription.valid
+                                }"
+                            >
+                            </textarea>
+                            @if (ncfc.largeDescription.touched && ncfc.largeDescription.errors) {
+                                <div class="invalid-feedback">
+                                    @if (ncfc.largeDescription.errors.required) {
+                                        <div>{{ 'validation.extendedRequired' | translate }}</div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                    <div class="d-flex flex-column h-100">
+                        <div>
+                            <label class="text-dark fw-bold">{{ 'forms.latitude' | translate }}</label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                formControlName="latitude"
+                                [ngClass]="{
+                                    'is-invalid': ncfc.latitude.touched && ncfc.latitude.errors,
+                                    'is-valid': ncfc.latitude.valid
+                                }"
+                            />
+                            @if (ncfc.latitude.touched && ncfc.latitude.errors) {
+                                <div class="invalid-feedback">
+                                    @if (ncfc.latitude.errors.required) {
+                                        <div>{{ 'validation.latitudeRequired' | translate }}</div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="d-flex gap-2 justify-content-start align-items-end h-100 pb-4">
+                            <div>
+                                <input type="file" id="fileInput" multiple accept="image/*" (change)="onFileSelected($event)" class="d-none" />
+                                <button type="button" class="btn btn-primary" (click)="triggerFileInput()">
+                                    {{ 'forms.uploadImages' | translate }}
+                                </button>
+                            </div>
+
+                            <div class="mt-2" style="width: 55%">
+                                <ul class="list-group">
+                                    <li
+                                        *ngFor="let file of filesToUpload; let i = index"
+                                        class="list-group-item d-flex justify-content-between align-items-center"
+                                    >
+                                        {{ file.name }}
+                                        <button type="button" class="btn btn-sm btn-danger" (click)="removeFile(i)">&times;</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                    <div class="d-flex flex-column h-100">
+                        <div>
+                            <label class="text-dark fw-bold">{{ 'forms.longitude' | translate }}</label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                formControlName="longitude"
+                                [ngClass]="{
+                                    'is-invalid': ncfc.longitude.touched && ncfc.longitude.errors,
+                                    'is-valid': ncfc.longitude.valid
+                                }"
+                            />
+                            @if (ncfc.longitude.touched && ncfc.longitude.errors) {
+                                <div class="invalid-feedback">
+                                    @if (ncfc.longitude.errors.required) {
+                                        <div>{{ 'validation.longitudeRequired' | translate }}</div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="d-flex gap-2 justify-content-end align-items-end h-100 pb-4">
+                            <button type="submit" class="btn btn-primary">
+                                <div class="d-flex">
+                                    <img src="./assets/images/icons/save.svg" class="me-2" />
+                                    <span>{{ 'forms.saveConstruction' | translate }}</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6"></div>
+            </div>
+        </form>
+    </div>
+</div>

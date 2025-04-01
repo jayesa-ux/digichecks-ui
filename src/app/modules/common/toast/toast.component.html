@@ -1,0 +1,8 @@
+<div #toastElement class="toast fade toast-width mt-2" [ngClass]="type" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex flex-row justify-content-between align-content-center p-3">
+        <div>
+            <span>{{ message }}</span>
+        </div>
+        <button type="button" class="btn-close" aria-label="Close" class="btn-close btn-close-white" (click)="hide()"></button>
+    </div>
+</div>

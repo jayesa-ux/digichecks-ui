@@ -1,0 +1,11 @@
+.form-control__icon {
+    border-top-right-radius: 0rem !important;
+    border-bottom-right-radius: 0rem !important;
+}
+
+.table-row:hover {
+    box-shadow: 0 4px 8px var(--bs-gray);
+    background-color: var(--bs-gray);
+    transition: box-shadow 0.3s ease-in-out;
+    transition: background-color 0.3s ease;
+}
